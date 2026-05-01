@@ -20,7 +20,12 @@ Photos taken for scanning purposes are processed immediately and deleted. They a
 All payments are handled by Apple. We do not collect or store any payment information.
 
 ## Data Storage
-Your data is stored on servers located in the European Union. Our subscription provider, Superwall, may process limited usage data outside the EU.
+We use the following third-party services to operate the app:
+- **OpenAI** — processes images for expiry date and product detection.
+- **Supabase** — stores your account and pantry data on servers in the European Union.
+- **Superwall** — manages subscriptions and may process limited usage data.
+
+Each of these services has its own privacy policy governing how they handle data.
 
 ## Your Rights
 You may request access to, correction of, or deletion of your personal data at any time by contacting us at support@tryshelflife.com. You can also delete your account directly from within the app.
