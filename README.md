@@ -9,3 +9,16 @@ build pipeline, or release tooling. Treat this repo as the public website/legal
 asset bundle only.
 
 The site is plain HTML and static assets hosted via Cloudflare Workers.
+
+## Real App Stack
+
+The ShelfLife app itself is built with React Native.
+
+Its backend uses Supabase for authentication, user data, and an Edge Function
+that calls an OpenAI image model. That model extracts the expiry date and item
+name from a single product photo. Supabase also mirrors subscription status so
+only subscribed users can call the Edge Function.
+
+Transactional account emails, such as confirmation messages, are sent through
+Resend as the SMTP provider. Paywalls and subscription status are handled with
+Superwall.
