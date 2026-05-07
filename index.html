@@ -59,6 +59,10 @@
                 min-height: 100%;
             }
 
+            html {
+                position: relative;
+            }
+
             body {
                 font-family:
                     "Funnel Display", -apple-system, BlinkMacSystemFont,
@@ -97,7 +101,7 @@
 
             html::before {
                 content: "";
-                position: fixed;
+                position: absolute;
                 inset: 0;
                 z-index: 0;
                 pointer-events: none;
@@ -774,15 +778,28 @@
         </footer>
 
         <script>
-            window.addEventListener("pointermove", (event) => {
+            let cursorClientX = -200;
+            let cursorClientY = -200;
+
+            const updateCursorGlow = () => {
                 document.documentElement.style.setProperty(
                     "--cursor-x",
-                    `${event.clientX}px`,
+                    `${cursorClientX + window.scrollX}px`,
                 );
                 document.documentElement.style.setProperty(
                     "--cursor-y",
-                    `${event.clientY}px`,
+                    `${cursorClientY + window.scrollY}px`,
                 );
+            };
+
+            window.addEventListener("pointermove", (event) => {
+                cursorClientX = event.clientX;
+                cursorClientY = event.clientY;
+                updateCursorGlow();
+            });
+
+            window.addEventListener("scroll", updateCursorGlow, {
+                passive: true,
             });
         </script>
 
