@@ -64,6 +64,11 @@
                     "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                 background:
                     radial-gradient(
+                        circle,
+                        rgba(255, 255, 255, 0.085) 0 1px,
+                        transparent 1.35px
+                    ),
+                    radial-gradient(
                         circle at top,
                         rgba(255, 255, 255, 0.1),
                         transparent 34%
@@ -79,8 +84,84 @@
                         var(--bg) 40%,
                         #040505 100%
                     );
+                background-size: 30px 30px, auto, auto, auto;
+                background-position:
+                    center top,
+                    center top,
+                    center,
+                    center;
                 color: var(--text);
                 overflow-x: hidden;
+            }
+
+            html::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                z-index: 0;
+                pointer-events: none;
+                background:
+                    radial-gradient(
+                        circle at var(--cursor-x, -20%) var(--cursor-y, -20%),
+                        rgba(255, 255, 255, 0.38),
+                        rgba(255, 255, 255, 0.15) 3.2rem,
+                        transparent 7rem
+                    ),
+                    radial-gradient(
+                        circle,
+                        rgba(255, 255, 255, 0.22),
+                        rgba(255, 255, 255, 0.045) 26%,
+                        rgba(255, 255, 255, 0.012) 46%,
+                        transparent 62%
+                    );
+                background-size:
+                    auto,
+                    80rem 80rem;
+                background-position:
+                    center,
+                    -90rem 45%;
+                background-repeat: no-repeat;
+                -webkit-mask-image: radial-gradient(
+                    circle,
+                    #000 0 1px,
+                    transparent 1.35px
+                );
+                mask-image: radial-gradient(
+                    circle,
+                    #000 0 1px,
+                    transparent 1.35px
+                );
+                -webkit-mask-size: 30px 30px;
+                mask-size: 30px 30px;
+                -webkit-mask-position: center top;
+                mask-position: center top;
+                -webkit-mask-repeat: repeat;
+                mask-repeat: repeat;
+                animation: dot-ripple 10s ease-in-out infinite;
+            }
+
+            @keyframes dot-ripple {
+                0%,
+                12% {
+                    background-position:
+                        center,
+                        -90rem 45%;
+                    opacity: 0.75;
+                }
+
+                52% {
+                    background-position:
+                        center,
+                        50% 45%;
+                    opacity: 1;
+                }
+
+                100% {
+                    background-position:
+                        center,
+                        calc(100% + 90rem) 45%;
+                    opacity: 0.75;
+                }
             }
 
             body::before,
@@ -92,6 +173,7 @@
                 pointer-events: none;
                 filter: blur(70px);
                 opacity: 0.35;
+                z-index: 0;
             }
 
             body::before {
@@ -231,6 +313,8 @@
             }
 
             main {
+                position: relative;
+                z-index: 1;
                 min-height: calc(100vh - 6rem);
                 padding: 2.5rem 1.5rem 0;
             }
@@ -266,7 +350,7 @@
                 font-size: clamp(1.05rem, 2vw, 1.35rem);
                 line-height: 1.4;
                 color: var(--muted);
-                font-weight: 500;
+                font-weight: 400;
                 text-wrap: pretty;
             }
 
@@ -396,6 +480,8 @@
             }
 
             .site-footer {
+                position: relative;
+                z-index: 1;
                 width: min(100% - 2rem, 74rem);
                 margin: 0.5rem auto 0;
                 padding: 0.85rem 0 1rem;
@@ -607,6 +693,19 @@
                 </nav>
             </div>
         </footer>
+
+        <script>
+            window.addEventListener("pointermove", (event) => {
+                document.documentElement.style.setProperty(
+                    "--cursor-x",
+                    `${event.clientX}px`,
+                );
+                document.documentElement.style.setProperty(
+                    "--cursor-y",
+                    `${event.clientY}px`,
+                );
+            });
+        </script>
 
     </body>
 </html>
