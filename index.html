@@ -23,6 +23,15 @@
         />
         <link rel="manifest" href="/site.webmanifest" />
         <style>
+            @font-face {
+                font-family: "Funnel Display";
+                src: url("./Funnel_Display/FunnelDisplay-VariableFont_wght.ttf")
+                    format("truetype");
+                font-weight: 300 800;
+                font-style: normal;
+                font-display: swap;
+            }
+
             :root {
                 color-scheme: dark;
                 --bg: #060708;
@@ -51,8 +60,8 @@
 
             body {
                 font-family:
-                    Inter, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial,
-                    sans-serif;
+                    "Funnel Display", -apple-system, BlinkMacSystemFont,
+                    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                 background:
                     radial-gradient(
                         circle at top,
@@ -101,51 +110,43 @@
                 background: rgba(139, 184, 255, 0.12);
             }
 
-            main {
-                min-height: 100vh;
+            .site-header {
+                position: sticky;
+                top: 1rem;
+                z-index: 10;
+                width: min(100% - 2rem, 74rem);
+                margin: 1rem auto 0;
+                padding: 0;
+            }
+
+            .site-header-inner {
                 display: flex;
-                flex-direction: column;
                 align-items: center;
-                justify-content: flex-start;
-                gap: 1.3rem;
-                padding: 1.4rem 1.5rem 0;
+                justify-content: space-between;
+                gap: 1rem;
+                padding: 0.55rem 0.55rem 0.55rem 1.05rem;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 999px;
+                background: rgba(13, 16, 19, 0.78);
+                box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+                backdrop-filter: blur(18px);
             }
 
-            .hero {
-                width: min(100%, 46rem);
-                text-align: center;
-                padding: 1.65rem 1.4rem 1.35rem;
-                border: 1px solid var(--panel-border);
-                border-radius: 1.55rem;
-                background: linear-gradient(
-                    180deg,
-                    rgba(255, 255, 255, 0.03),
-                    rgba(255, 255, 255, 0.02)
-                );
-                box-shadow: var(--shadow);
-                backdrop-filter: blur(16px);
-            }
-
-            .brand {
+            .header-brand {
                 display: inline-flex;
                 align-items: center;
-                justify-content: center;
-                gap: 0.95rem;
-                margin-bottom: 1.25rem;
-                padding: 0.6rem 0.9rem 0.6rem 0.6rem;
-                border-radius: 999px;
-                background: var(--panel);
-                border: 1px solid rgba(255, 255, 255, 0.08);
+                gap: 0.85rem;
+                min-width: 0;
             }
 
             .brand-mark {
-                width: 3rem;
-                height: 3rem;
-                border-radius: 0.85rem;
+                width: 3.1rem;
+                height: 3.1rem;
+                border-radius: 0.75rem;
                 object-fit: cover;
                 box-shadow:
                     0 0 0 1px rgba(255, 255, 255, 0.08),
-                    0 18px 38px rgba(0, 0, 0, 0.35);
+                    0 14px 30px rgba(0, 0, 0, 0.32);
             }
 
             .brand-copy {
@@ -154,146 +155,351 @@
                 align-items: flex-start;
                 line-height: 1;
                 text-align: left;
+                min-width: 0;
             }
 
             .brand-kicker {
-                font-size: 0.75rem;
-                letter-spacing: 0.24em;
+                font-size: 0.58rem;
+                letter-spacing: 0.2em;
                 text-transform: uppercase;
                 color: rgba(244, 245, 246, 0.48);
-                margin-bottom: 0.45rem;
+                margin-bottom: 0.32rem;
+                white-space: nowrap;
             }
 
             .brand-name {
-                font-size: 1.35rem;
-                font-weight: 700;
+                font-size: 1.45rem;
+                font-weight: 800;
                 letter-spacing: 0.01em;
+            }
+
+            .header-actions {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                flex: 0 0 auto;
+            }
+
+            .header-link,
+            .header-download {
+                color: var(--link);
+                text-decoration: none;
+                transition:
+                    color 180ms ease,
+                    transform 180ms ease;
+            }
+
+            .header-link {
+                font-size: 0.98rem;
+            }
+
+            .header-download {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 3.38rem;
+                padding: 0 1.35rem;
+                border: 0;
+                border-radius: 999px;
+                background: linear-gradient(180deg, #ffffff, var(--button-bg));
+                color: var(--button-text);
+                font-family: inherit;
+                font-size: 0.95rem;
+                font-weight: 700;
+                cursor: pointer;
+                box-shadow:
+                    0 12px 26px rgba(0, 0, 0, 0.28),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+            }
+
+            .header-link:hover,
+            .header-link:focus-visible,
+            .header-download:hover,
+            .header-download:focus-visible {
+                transform: translateY(-1px);
+            }
+
+            .header-link:hover,
+            .header-link:focus-visible {
+                color: var(--link-hover);
+            }
+
+            .header-link:focus-visible,
+            .header-download:focus-visible {
+                outline: 2px solid rgba(255, 255, 255, 0.3);
+                outline-offset: 0.35rem;
+            }
+
+            main {
+                min-height: calc(100vh - 6rem);
+                padding: 2.5rem 1.5rem 0;
+            }
+
+            .hero {
+                width: min(100%, 74rem);
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1.1fr);
+                gap: clamp(1.5rem, 5vw, 4rem);
+                align-items: center;
+            }
+
+            .hero-copy {
+                font-family: inherit;
+                text-align: left;
             }
 
             h1 {
                 margin: 0;
-                font-family:
-                    "SF Pro Display", Inter, "Segoe UI", Roboto, Helvetica,
-                    Arial, sans-serif;
-                font-size: clamp(2.45rem, 5.8vw, 4.65rem);
-                line-height: 1.02;
+                font-family: inherit;
+                font-size: clamp(2.6rem, 5.8vw, 4.8rem);
+                line-height: 1;
                 letter-spacing: 0;
-                text-wrap: balance;
+                font-weight: 800;
+                text-wrap: pretty;
             }
 
             .subtitle {
                 width: min(100%, 35rem);
-                margin: 1.1rem auto 1.6rem;
-                font-size: clamp(1rem, 2vw, 1.35rem);
+                margin: 1.1rem 0 1.6rem;
+                font-family: inherit;
+                font-size: clamp(1.05rem, 2vw, 1.35rem);
                 line-height: 1.4;
                 color: var(--muted);
-                text-wrap: balance;
+                font-weight: 500;
+                text-wrap: pretty;
             }
 
             .cta-shell {
                 display: inline-flex;
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
                 gap: 1rem;
             }
 
             .cta {
-                display: inline-flex;
+                display: inline-grid;
+                grid-template-columns: auto 1fr;
                 align-items: center;
-                justify-content: center;
-                gap: 0.9rem;
-                min-width: min(100%, 22rem);
-                padding: 0.9rem 1.75rem;
-                border: none;
+                justify-content: start;
+                gap: 0.72rem;
+                width: 11.9rem;
+                min-height: 3.55rem;
+                padding: 0 1.05rem 0 0.92rem;
+                border: 0;
                 border-radius: 999px;
-                background: linear-gradient(180deg, #ffffff, var(--button-bg));
+                background: linear-gradient(180deg, #ffffff 0%, #f1f2f4 100%);
                 color: var(--button-text);
-                font-size: clamp(1.05rem, 1.7vw, 1.35rem);
-                font-weight: 650;
-                letter-spacing: -0.02em;
+                font-family: inherit;
+                cursor: pointer;
                 box-shadow:
-                    0 18px 38px rgba(0, 0, 0, 0.35),
+                    0 16px 34px rgba(0, 0, 0, 0.34),
+                    0 0 0 1px rgba(255, 255, 255, 0.2),
                     inset 0 1px 0 rgba(255, 255, 255, 0.95);
+                transition:
+                    box-shadow 360ms ease,
+                    transform 180ms ease;
+            }
+
+            .cta:hover,
+            .cta:focus-visible {
+                box-shadow:
+                    0 16px 34px rgba(0, 0, 0, 0.34),
+                    0 0 24px rgba(177, 108, 255, 0.24),
+                    0 0 42px rgba(86, 148, 255, 0.14),
+                    0 0 0 1px rgba(255, 255, 255, 0.24),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+                transform: translateY(-1px);
+            }
+
+            .cta:focus-visible {
+                outline: 2px solid rgba(255, 255, 255, 0.36);
+                outline-offset: 0.35rem;
             }
 
             .cta-badge {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 1.55rem;
+                width: 2.15rem;
+                font-size: 2.12rem;
                 line-height: 1;
                 font-family: "SF Pro Display", "Segoe UI Symbol", sans-serif;
+                transform: translateY(-0.01em);
             }
 
-            .links {
+            .cta-label {
                 display: flex;
-                align-items: center;
+                flex-direction: column;
+                align-items: flex-start;
                 justify-content: center;
-                gap: 1.4rem;
-                flex-wrap: wrap;
+                line-height: 1;
+                text-align: left;
             }
 
-            .links a {
-                color: var(--link);
-                text-decoration: none;
-                font-size: 1rem;
-                transition:
-                    color 180ms ease,
-                    transform 180ms ease;
+            .cta-kicker {
+                margin-bottom: 0.14rem;
+                color: var(--button-text);
+                font-size: 0.67rem;
+                font-weight: 700;
+                letter-spacing: 0.015em;
             }
 
-            .screenshots {
-                width: min(100%, 74rem);
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: clamp(0.75rem, 2vw, 1.25rem);
-                align-items: end;
-                margin-top: 0.1rem;
+            .cta-store {
+                color: var(--button-text);
+                font-size: 1.28rem;
+                font-weight: 800;
+                letter-spacing: -0.015em;
             }
 
-            .screenshot {
+            .hero-art {
+                position: relative;
+                isolation: isolate;
+                width: min(100%, 42rem);
+                justify-self: end;
+            }
+
+            .hero-art::before {
+                content: "";
+                position: absolute;
+                inset: -2% -4% -6% -12%;
+                z-index: 0;
+                border-radius: 50%;
+                background:
+                    radial-gradient(
+                        circle at 42% 40%,
+                        rgba(177, 108, 255, 0.64),
+                        transparent 46%
+                    ),
+                    radial-gradient(
+                        circle at 62% 56%,
+                        rgba(86, 148, 255, 0.64),
+                        transparent 52%
+                    ),
+                    radial-gradient(
+                        circle at 50% 70%,
+                        rgba(255, 255, 255, 0.24),
+                        transparent 48%
+                    );
+                filter: blur(40px);
+                opacity: 1;
+                transform: scale(0.98);
+            }
+
+            .hero-screens {
+                position: relative;
+                z-index: 1;
                 width: 100%;
                 height: auto;
                 display: block;
                 object-fit: contain;
             }
 
-            .links a:hover,
-            .links a:focus-visible {
+            .site-footer {
+                width: min(100% - 2rem, 74rem);
+                margin: 0.5rem auto 0;
+                padding: 0.85rem 0 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+                color: var(--link);
+            }
+
+            .site-footer-inner {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                font-size: 0.95rem;
+            }
+
+            .footer-legal {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .footer-label {
+                color: rgba(244, 245, 246, 0.86);
+                font-weight: 700;
+            }
+
+            .footer-link {
+                color: var(--link);
+                text-decoration: none;
+                transition:
+                    color 180ms ease,
+                    transform 180ms ease;
+            }
+
+            .footer-link:hover,
+            .footer-link:focus-visible {
                 color: var(--link-hover);
                 transform: translateY(-1px);
             }
 
-            .links a:focus-visible {
+            .footer-link:focus-visible {
                 outline: 2px solid rgba(255, 255, 255, 0.3);
                 outline-offset: 0.35rem;
                 border-radius: 999px;
             }
 
             @media (max-width: 640px) {
-                main {
-                    gap: 0.6rem;
-                    padding: 0.8rem 0.75rem 0;
+                .site-header {
+                    top: 0.6rem;
+                    width: min(100% - 1rem, 34rem);
+                    margin-top: 0.6rem;
                 }
 
-                .hero {
-                    padding: 1.2rem 1rem 1.15rem;
-                    border-radius: 1.25rem;
-                }
-
-                .brand {
+                .site-header-inner {
                     gap: 0.75rem;
-                    margin-bottom: 1.5rem;
-                    padding-right: 0.9rem;
+                    padding: 0.5rem 0.5rem 0.5rem 0.75rem;
+                }
+
+                .header-brand {
+                    gap: 0.65rem;
                 }
 
                 .brand-mark {
-                    width: 2.75rem;
-                    height: 2.75rem;
+                    width: 2.65rem;
+                    height: 2.65rem;
+                }
+
+                .brand-kicker {
+                    font-size: 0.5rem;
+                    letter-spacing: 0.16em;
+                }
+
+                .brand-name {
+                    font-size: 1.18rem;
+                }
+
+                .header-actions {
+                    gap: 0.75rem;
+                }
+
+                .header-link {
+                    font-size: 0.9rem;
+                }
+
+                .header-download {
+                    min-height: 2.95rem;
+                    padding: 0 1.05rem;
+                    font-size: 0.9rem;
+                }
+
+                main {
+                    min-height: auto;
+                    padding: 2rem 0.75rem 0;
+                }
+
+                .hero {
+                    grid-template-columns: 1fr;
+                    gap: 1rem;
                 }
 
                 .subtitle {
-                    margin-bottom: 2rem;
+                    margin-bottom: 1.5rem;
                 }
 
                 .cta {
@@ -302,25 +508,33 @@
                     padding-inline: 1.5rem;
                 }
 
-                .links {
-                    gap: 1rem;
+                .hero-art {
+                    width: min(100%, 34rem);
+                    justify-self: center;
                 }
 
-                .screenshots {
-                    grid-template-columns: 1fr;
-                    gap: 0.2rem;
-                    width: min(100%, 34rem);
+                .site-footer {
+                    width: min(100% - 1rem, 34rem);
+                    padding-bottom: 0.8rem;
+                }
+
+                .site-footer-inner {
+                    gap: 0.8rem;
+                    font-size: 0.9rem;
                 }
             }
+
         </style>
     </head>
     <body>
-        <main>
-            <section class="hero" aria-label="ShelfLife landing page">
-                <div class="brand">
+        <header class="site-header">
+            <div class="site-header-inner">
+                <div class="header-brand">
                     <img
                         class="brand-mark"
-                        src="./ShelfLife-iOS-Dark-1024x1024@1x.png"
+                        src="./ShelfLife-icon.webp"
+                        width="192"
+                        height="192"
                         alt="ShelfLife app icon"
                     />
                     <div class="brand-copy">
@@ -329,42 +543,70 @@
                     </div>
                 </div>
 
-                <h1>Track Expiry Dates. Waste Less Food.</h1>
-                <p class="subtitle">
-                    Scan groceries, stay ahead of what needs to be used next,
-                    and keep your kitchen organized with ShelfLife.
-                </p>
+                <nav class="header-actions" aria-label="Primary navigation">
+                    <a class="header-link" href="mailto:support@tryshelflife.com">
+                        Support
+                    </a>
+                    <button
+                        class="header-download"
+                        type="button"
+                        aria-label="Download ShelfLife"
+                    >
+                        Download
+                    </button>
+                </nav>
+            </div>
+        </header>
 
-                <div class="cta-shell">
-                    <div class="cta">
-                        <span class="cta-badge" aria-hidden="true"></span>
-                        <span>Download</span>
+        <main>
+            <section class="hero" aria-label="ShelfLife landing page">
+                <div class="hero-copy">
+                    <h1>Track Expiry Dates. Waste Less Food.</h1>
+                    <p class="subtitle">
+                        Scan groceries, stay ahead of what needs to be used
+                        next, and keep your kitchen organized with ShelfLife.
+                    </p>
+
+                    <div class="cta-shell">
+                        <button
+                            class="cta"
+                            type="button"
+                            aria-label="Download ShelfLife on the App Store"
+                        >
+                            <span class="cta-badge" aria-hidden="true"></span>
+                            <span class="cta-label">
+                                <span class="cta-kicker">Download on the</span>
+                                <span class="cta-store">App Store</span>
+                            </span>
+                        </button>
                     </div>
+                </div>
 
-                    <nav class="links" aria-label="Legal links">
-                        <a href="./terms">Terms of Service</a>
-                        <a href="mailto:support@tryshelflife.com">Support</a>
-                        <a href="./privacy">Privacy Policy</a>
-                    </nav>
+                <div class="hero-art">
+                    <img
+                        class="hero-screens"
+                        src="./3screens-2.webp"
+                        width="1512"
+                        height="1512"
+                        alt="ShelfLife app screens showing grocery expiry tracking"
+                    />
                 </div>
             </section>
-
-            <section class="screenshots" aria-label="ShelfLife app screenshots">
-                <img
-                    class="screenshot"
-                    src="./screenshots/screen2.webp"
-                    width="1080"
-                    height="1500"
-                    alt="ShelfLife app screenshot showing tracked grocery items"
-                />
-                <img
-                    class="screenshot"
-                    src="./screenshots/screen3.webp"
-                    width="1080"
-                    height="1500"
-                    alt="ShelfLife app screenshot showing expiry tracking details"
-                />
-            </section>
         </main>
+
+        <footer class="site-footer">
+            <div class="site-footer-inner">
+                <nav class="footer-legal" aria-label="Legal links">
+                    <span class="footer-label">Legal</span>
+                    <a class="footer-link" href="./privacy.html">
+                        Privacy Policy
+                    </a>
+                    <a class="footer-link" href="./terms.html">
+                        Terms of Service
+                    </a>
+                </nav>
+            </div>
+        </footer>
+
     </body>
 </html>
