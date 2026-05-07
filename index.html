@@ -531,6 +531,21 @@
             }
 
             @media (max-width: 640px) {
+                html::before {
+                    animation: none;
+                    background: radial-gradient(
+                        circle,
+                        rgba(255, 255, 255, 0.055) 0 1px,
+                        transparent 1.35px
+                    );
+                    background-size: 30px 30px;
+                    background-position: center top;
+                    background-repeat: repeat;
+                    -webkit-mask-image: none;
+                    mask-image: none;
+                    opacity: 1;
+                }
+
                 .site-header {
                     top: 0.6rem;
                     width: min(100% - 1rem, 34rem);
@@ -569,9 +584,19 @@
                 }
 
                 .header-download {
+                    -webkit-appearance: none;
+                    appearance: none;
                     min-height: 2.95rem;
                     padding: 0 1.05rem;
+                    background: linear-gradient(
+                        180deg,
+                        #ffffff,
+                        var(--button-bg)
+                    );
+                    color: var(--button-text);
                     font-size: 0.9rem;
+                    -webkit-text-fill-color: var(--button-text);
+                    text-shadow: none;
                 }
 
                 main {
@@ -581,7 +606,7 @@
 
                 .hero {
                     grid-template-columns: 1fr;
-                    gap: 1rem;
+                    gap: 2rem;
                 }
 
                 .subtitle {
@@ -589,9 +614,19 @@
                 }
 
                 .cta {
+                    -webkit-appearance: none;
+                    appearance: none;
                     min-width: 100%;
                     width: min(100%, 22rem);
                     padding-inline: 1.5rem;
+                    background: linear-gradient(
+                        180deg,
+                        #ffffff 0%,
+                        #f1f2f4 100%
+                    );
+                    color: var(--button-text);
+                    -webkit-text-fill-color: var(--button-text);
+                    text-shadow: none;
                 }
 
                 .hero-art {
