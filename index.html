@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>ShelfLife</title>
+        <meta name="color-scheme" content="dark" />
         <meta
             name="description"
             content="ShelfLife helps you scan groceries, track expiry dates, and waste less food."
@@ -33,7 +34,7 @@
             }
 
             :root {
-                color-scheme: dark;
+                color-scheme: only dark;
                 --bg: #060708;
                 --bg-soft: #0d1013;
                 --panel: rgba(255, 255, 255, 0.045);
@@ -642,6 +643,49 @@
                 .site-footer-inner {
                     gap: 0.8rem;
                     font-size: 0.9rem;
+                }
+            }
+
+            @media (hover: none), (pointer: coarse) {
+                html::before {
+                    animation: none;
+                    background: radial-gradient(
+                        circle,
+                        rgba(255, 255, 255, 0.055) 0 1px,
+                        transparent 1.35px
+                    );
+                    background-size: 30px 30px;
+                    background-position: center top;
+                    background-repeat: repeat;
+                    -webkit-mask-image: none;
+                    mask-image: none;
+                    opacity: 1;
+                }
+
+                .header-download,
+                .cta {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    color: var(--button-text);
+                    -webkit-text-fill-color: var(--button-text);
+                    text-shadow: none;
+                    forced-color-adjust: none;
+                }
+
+                .header-download {
+                    background: linear-gradient(
+                        180deg,
+                        #ffffff,
+                        var(--button-bg)
+                    );
+                }
+
+                .cta {
+                    background: linear-gradient(
+                        180deg,
+                        #ffffff 0%,
+                        #f1f2f4 100%
+                    );
                 }
             }
 
