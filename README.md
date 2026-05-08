@@ -10,7 +10,7 @@ asset bundle only.
 
 The site is plain HTML and static assets hosted via Cloudflare Workers.
 
-## Real App Stack
+## Mobile App Stack
 
 The ShelfLife app itself is built with React Native.
 
